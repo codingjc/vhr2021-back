@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -49,13 +48,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                // 所有在认证后才能访问
                 .anyRequest().authenticated()
                 .and()
+                // 表单登陆
                 .formLogin()
                 .usernameParameter("username")
                 .passwordParameter("password")
+                // 登陆处理的url
                 .loginProcessingUrl("/doLogin")
                 .loginPage("/login")
+                // 登陆成功的回调
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp,
@@ -71,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
+                // 登陆失败回调
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp,
@@ -99,10 +103,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
+                // 上述接口允许直接访问
                 .permitAll()
                 .and()
+                // 注销登陆
                 .logout()
                 .logoutUrl("/logout")
+                // 注销成功回调
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
                     public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse resp,
@@ -116,8 +123,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
+                // 允许访问
                 .permitAll()
                 .and()
+                // 关闭csrf
                 .csrf()
                 .disable();
     }
