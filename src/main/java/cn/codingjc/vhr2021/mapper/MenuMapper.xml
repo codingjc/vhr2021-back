@@ -205,4 +205,9 @@ select m1.id as id1, m1.name as name1, m2.id as id2, m2.name as name2, m3.id as 
       enabled = #{enabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllMenusWithRole" resultMap="MenusWithRole">
+    select m.*, r.id as rid, r.name as rname, r.nameZh as rnameZH from vhr.menu m, vhr.menu_role mr, vhr.role r
+    where m.id = mr.mid and mr.rid = r.id order by m.id
+  </select>
 </mapper>

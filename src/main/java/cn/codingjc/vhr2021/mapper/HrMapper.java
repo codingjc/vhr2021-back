@@ -39,4 +39,11 @@ public interface HrMapper {
      * @return
      */
     List<Hr> getAllHrs(@Param("hrid") Integer id, @Param("keyword") String keyword);
+
+    /**
+     * 通过hrid查询角色
+     * @param id
+     * @return
+     */
+    List<Role> setHrRolesByHrid(Integer id);
 }

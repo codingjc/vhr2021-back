@@ -1,6 +1,7 @@
 package cn.codingjc.vhr2021.controller;
 
 import cn.codingjc.vhr2021.model.RespBean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

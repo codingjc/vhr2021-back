@@ -117,9 +117,14 @@ public class Hr implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
+//    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
+        for (Role role : roles) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.getName());
+            authorities.add(simpleGrantedAuthority);
+        }
+        return authorities;
     }
 
     @Override
