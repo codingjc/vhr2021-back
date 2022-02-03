@@ -81,7 +81,7 @@
   </update>
 
   <select id="getAllPositions" resultMap="BaseResultMap">
-    select * from position;
+    select * from position
   </select>
 
   <delete id="deletePositionByIds">
@@ -90,4 +90,8 @@
       #{id}
     </foreach>
   </delete>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select * from position where name = #{name}
+  </select>
 </mapper>

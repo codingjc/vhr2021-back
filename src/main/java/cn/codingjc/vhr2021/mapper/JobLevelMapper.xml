@@ -101,4 +101,8 @@
       #{id}
     </foreach>
   </delete>
+
+  <select id="getJobLevelByName" resultMap="BaseResultMap">
+    select * from joblevel where name = #{name}
+  </select>
 </mapper>

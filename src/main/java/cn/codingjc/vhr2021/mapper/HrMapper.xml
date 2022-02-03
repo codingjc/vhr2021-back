@@ -179,6 +179,6 @@
   </update>
 
   <select id="setHrRolesByHrid" resultType="cn.codingjc.vhr2021.model.Role">
-    select r.* from role r, hr_role hrr where r.`id` = hrr.`hrid` and hrr.`hrid` = #{id}
+    select r.* from role r, hr_role hrr where r.`id` = hrr.`rid` and hrr.`hrid` = #{id}
   </select>
 </mapper>

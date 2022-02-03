@@ -162,6 +162,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         RespBean respBean = RespBean.error("登陆失败");
                         if (e instanceof InsufficientAuthenticationException) {
                             respBean.setMsg("尚未登陆，请登陆");
+                            respBean.setStatus(401);
                         }
                         out.write(new ObjectMapper().writeValueAsString(respBean));
                         out.flush();
