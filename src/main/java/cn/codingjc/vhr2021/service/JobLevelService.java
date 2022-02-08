@@ -47,7 +47,7 @@ public class JobLevelService {
      */
     public int add(JobLevel jobLevel) {
         List<JobLevel> jobLevels = jobLevelMapper.getJobLevelByName(jobLevel.getName());
-        if (jobLevels.size() > 1) {
+        if (jobLevels.size() == 1) {
             return -1;
         }
         jobLevel.setEnabled(true);
