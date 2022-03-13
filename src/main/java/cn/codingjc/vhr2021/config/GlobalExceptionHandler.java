@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SQLException.class)
     public RespBean handlerMySQLException(SQLException e){
         if (e instanceof MySQLIntegrityConstraintViolationException) {
+            e.printStackTrace();
             return RespBean.error("当前数据被绑定，不可删除！");
         }
         return RespBean.error("数据库异常，操作失败！");

@@ -27,8 +27,17 @@ public class SystemConfigController {
      * @return
      */
     @GetMapping("/menu")
-     public List<Menu> getMenusByHrId () {
+    public List<Menu> getMenusByHrId () {
         return menuService.getMenusByHrId(((Hr) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId());
-     }
+    }
+
+    /**
+     * 查询天气
+     * @return
+     */
+    @GetMapping("/weather")
+    public Object queryWeather(){
+        return menuService.queryWeather();
+    }
 }

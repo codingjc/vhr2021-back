@@ -5,9 +5,7 @@ import cn.codingjc.vhr2021.model.RespBean;
 import cn.codingjc.vhr2021.model.Role;
 import cn.codingjc.vhr2021.service.PermissService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,33 @@ public class PermissionController {
     @GetMapping("/menus")
     public List<Menu> getAllMenus(){
         return permissService.getAllMenus();
+    }
+
+    @GetMapping("/{rid}")
+    public List<Integer> getMemuIdByRid(@PathVariable("rid") int rid){
+        return permissService.getMemuIdByRid(rid);
+    }
+
+    @PutMapping("/")
+    public RespBean updateMenuRole(Integer rid, Integer[] mids){
+        return permissService.updateMenuRole(rid, mids);
+    }
+
+    @PostMapping("/")
+    public RespBean addMenuRole(@RequestBody Role role){
+        if (permissService.addMenuRole(role) == 1) {
+            return RespBean.ok("添加成功");
+        } else {
+            return RespBean.error("添加失败");
+        }
+    }
+
+    @DeleteMapping("/role/{rid}")
+    public RespBean deleteRole(@PathVariable("rid") Integer rid){
+        if (permissService.deleteRole(rid) == 1) {
+            return RespBean.ok("删除成功");
+        } else {
+            return RespBean.error("删除失败");
+        }
     }
 }

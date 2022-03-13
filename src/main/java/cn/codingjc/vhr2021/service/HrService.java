@@ -2,11 +2,15 @@ package cn.codingjc.vhr2021.service;
 
 import cn.codingjc.vhr2021.mapper.HrMapper;
 import cn.codingjc.vhr2021.model.Hr;
+import cn.codingjc.vhr2021.util.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author shenjicheng
@@ -26,5 +30,13 @@ public class HrService implements UserDetailsService {
         }
         hr.setRoles(hrMapper.setHrRolesByHrid(hr.getId()));
         return hr;
+    }
+
+    public List<Hr> getAllHrs(String keyWord) {
+        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(), keyWord);
+    }
+
+    public int update(Hr hr) {
+        return hrMapper.updateByPrimaryKeySelective(hr);
     }
 }
